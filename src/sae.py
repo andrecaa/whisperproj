@@ -1,9 +1,10 @@
-"""Sparse autoencoder on encoder activations (Phase E, PLAN §4E).
+"""
+Sparse autoencoder on encoder activations
 
 Standard top-k SAE: overcomplete dictionary, activations kept sparse by
-keeping only the k largest feature pre-activations per sample (no L1 term
-needed). Decoder rows are renormalized to unit norm after every step so
-feature magnitudes live in the activations, not the dictionary.
+keeping only the k largest feature pre-activations per sample. 
+Decoder rows are renormalized to unit norm after every step so
+feature magnitudes live in the activations
 """
 
 import numpy as np
@@ -42,7 +43,7 @@ class TopKSAE(nn.Module):
 
 
 def train_sae(
-    X: torch.Tensor,       # [N, d] float32 (moved to device in batches)
+    X: torch.Tensor, # [N, d] float32 (moved to device in batches)
     n_features: int,
     k: int,
     device: str,
@@ -64,13 +65,13 @@ def train_sae(
         perm = torch.randperm(n)
         total = 0.0
         for i in range(0, n, batch_size):
-            xb = X[perm[i:i + batch_size]].to(device)   # batch to GPU here,
-            recon, _ = sae(xb)                          # X itself stays on CPU
+            xb = X[perm[i:i + batch_size]].to(device)  
+            recon, _ = sae(xb)                          
             loss = ((recon - xb) ** 2).sum(dim=-1).mean()
             opt.zero_grad()
             loss.backward()
             opt.step()
-            sae.normalize_decoder()   # keep dictionary rows unit-norm
+            sae.normalize_decoder()   # keep dictionary rows unit norm
             total += loss.item() * len(xb)
         mse = total / n
         if epoch == 0 or epoch == epochs - 1:

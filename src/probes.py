@@ -1,17 +1,11 @@
-"""Probing (Phase B, BASELINE; PLAN §4B).
+"""
+Probing
 
-Trains simple supervised probes on cached pooled activations, one per
-(layer, property) cell:
+Trains simple supervised probes on cached pooled activations, one per (layer, property) cell
 
-  * classification (language, gender, speaker-ID): standardize + logistic
-    regression, metric = accuracy
-  * regression (median F0): standardize + ridge (alpha chosen by internal CV
-    on the train folds), metric = R^2
-
-All probes use 5-fold cross-validation. When `groups` (speaker IDs) are
-provided the folds are speaker-disjoint (GroupKFold), the anti-leakage
-control from PLAN §4B; otherwise stratified/plain KFold with a fixed seed.
-The shuffled-label control reuses the same machinery on permuted labels.
+All probes use 5-fold cross validation. When groups (speaker IDs) are
+provided the folds are speaker disjoint (GroupKFold), otherwise stratified/plain KFold with a fixed seed.
+The shuffled label control reuses the same machinery on permuted labels.
 """
 
 import numpy as np
@@ -47,7 +41,7 @@ def run_probe(
     task: str = "classification",
     groups: np.ndarray | None = None,
 ) -> dict:
-    """One probe: 5-fold CV accuracy (classification) or R^2 (regression)."""
+    # One probe: 5-fold CV accuracy (classification) or R^2 (regression).
     scores = cross_val_score(
         _pipeline(task),
         X,
@@ -68,11 +62,10 @@ def probe_sweep(
     groups: np.ndarray | None = None,
     shuffle_control: bool = False,
 ) -> dict:
-    """Probe every layer plus the raw log-mel input (layer-0 control).
-
-    Returns {"logmel": result, "layers": [result_per_layer 0..L],
-             and, if requested, the same under "shuffled_*"}.
-    """
+    
+    # Probe every layer plus the raw log-mel input (layer-0 control).
+    # Returns {"logmel": result, "layers": [result_per_layer 0..L], and if requested the same under "shuffled_*"}
+    
     rng = np.random.default_rng(SEED)
     out = {
         "logmel": run_probe(pooled_logmel.numpy(), y, task, groups),
@@ -130,7 +123,7 @@ def low_data_sweep(
     n_per_class: int,
     n_repeats: int = 10,
 ) -> dict:
-    """run_low_data_probe over every layer + the raw log-mel input."""
+    # run_low_data_probe over every layer + the raw log-mel input
     return {
         "logmel": run_low_data_probe(pooled_logmel.numpy(), y, n_per_class, n_repeats),
         "layers": [
@@ -141,7 +134,7 @@ def low_data_sweep(
 
 
 def chance_level(y: np.ndarray, task: str) -> float:
-    """Majority-class rate (classification) or 0.0 (regression R^2)."""
+    # Majority-class rate (classification) or 0.0 (regression R^2)
     if task != "classification":
         return 0.0
     _, counts = np.unique(y, return_counts=True)

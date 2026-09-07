@@ -1,9 +1,9 @@
-"""Figures (PLAN §7).
+"""
+Figures
 
 Figure 1: property decodability vs. encoder layer: one curve per property,
 with chance levels (dashed), shuffled-label controls (dotted), and the raw
-log-mel input probe as the leftmost point ("mel").
-Figure 2 (Phase C) and steering plots (Phase D) land here later.
+log-mel input probe as the leftmost point ("mel")
 """
 
 from pathlib import Path

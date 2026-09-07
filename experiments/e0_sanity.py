@@ -1,12 +1,11 @@
-"""E0: activation extraction sanity (PLAN §5, gate for everything else).
+"""
+E0: activation extraction sanity
 
-Checks, in order:
-  1. SHAPES        cached tensors match n_layers/d_model/seq_len of the model
-  2. DETERMINISM   extracting twice yields bit-identical caches
-  3. CACHE==LIVE   reloaded cache matches a fresh live forward pass per clip
-Then prints the cached-activation format (the contract for Phases B-D).
+Checks shapes (cached tensors must have the same dimensions the model dictates), 
+determinism (extracting twice gives identical files), and cache==live (reloading from disk matches a fresh forward pass exactly)
+for a small set of clips
 
-Run:  uv run python experiments/e0_sanity.py --config configs/e0_debug.yaml
+Run: uv run python experiments/e0_sanity.py --config configs/e0_debug.yaml
 """
 
 import argparse

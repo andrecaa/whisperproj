@@ -1,5 +1,4 @@
-"""E1 (extraction half): cache pooled activations for a labeled dataset.
-
+"""
 Run once per dataset config:
   uv run python experiments/e1_extract.py --config configs/e1_fleurs.yaml
   uv run python experiments/e1_extract.py --config configs/e1_libri.yaml

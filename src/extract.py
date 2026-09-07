@@ -1,21 +1,11 @@
-"""Activation extraction: forward hooks + on-disk caching (Phase A, PLAN §4A).
+"""
+Activation extraction: forward hooks + on disk caching
 
-For each clip we run the frozen Whisper encoder and capture, per encoder
-block, the block's output hidden states. From those we store:
+For each clip we run the frozen Whisper encoder and capture the block's output hidden states. 
 
-  * pooled_layer{k}.pt : [n_clips, d_model] float32; hidden states mean-pooled
-    over the *valid* time frames only (Whisper always pads audio to 30 s and
-    its encoder has no attention mask, so pooling over all 1500 frames would
-    mostly average padding). Layer 0 is the encoder's input embedding (post
-    conv + positional), i.e. what enters block 1.
-  * pooled_logmel.pt   : [n_clips, n_mels] float32; the raw log-mel input
-    pooled the same way, for the "layer 0 control" probe (PLAN §4B).
-  * full_layer{k}.pt   : [n_clips, 1500, d_model] float16; full-sequence
-    activations, cached only when `store_full` is set (patching pairs).
-  * metadata.parquet   : one row per clip (id, speaker, duration, text, ...)
-    in the same order as dim 0 of every tensor.
+From those we store the pooled layer, the pooled logmel input, the full layer (optional), and the metadata table
 
-Everything runs under no_grad on the frozen model; nothing is trained.
+Everything runs under no_grad on the frozen model so no training
 """
 
 import math
@@ -31,15 +21,13 @@ from src.config import Config
 HOP = 160          # Whisper STFT hop at 16 kHz
 CONV_STRIDE = 2    # encoder conv2 stride: 3000 mel frames -> 1500 encoder frames
 
-
+# takes a clip of n samples and returns (valid mel frames, valid encoder frames)
 def n_valid_frames(n_samples: int) -> tuple[int, int]:
-    """(valid mel frames, valid encoder frames) for a clip of n_samples."""
     mel = math.ceil(n_samples / HOP)
     return mel, math.ceil(mel / CONV_STRIDE)
 
-
+# class to run the frozen Whisper encoder and capture activations at each layer
 class ActivationExtractor:
-    """Frozen Whisper + hooks on every encoder block output."""
 
     def __init__(self, cfg: Config):
         self.cfg = cfg
@@ -72,20 +60,16 @@ class ActivationExtractor:
 
         for k, layer in enumerate(self.encoder.layers, start=1):
             def hook(module, args, output, k=k):
-                # layer forward returns a tuple in older transformers versions,
-                # a bare [B, T, D] tensor in newer ones
+                # layer forward returns a tuple in older transformers versions
+                # returns a bare [B, T, D] tensor in newer ones
                 h = output[0] if isinstance(output, tuple) else output
                 self._captured[k] = h.detach()
 
             layer.register_forward_hook(hook)
 
+    # run one clip through the encoder and return the activations per layer
     @torch.no_grad()
     def encode(self, audio: np.ndarray) -> dict:
-        """Run one clip through the encoder; return activations per layer.
-
-        Returns {"logmel": [n_mels, 3000], "layers": [n_layers+1, 1500, d],
-                 "valid_enc_frames": int}; full padded sequences, float32.
-        """
         feats = self.processor(
             audio, sampling_rate=16_000, return_tensors="pt"
         ).input_features.to(self.cfg.device, self.cfg.torch_dtype)
@@ -102,22 +86,20 @@ class ActivationExtractor:
             "valid_enc_frames": valid_enc,
         }
 
-
+# mean pool over the first valid time frames of a tensor [..., T, D] -> [..., D]
 def pool(seq: torch.Tensor, valid: int) -> torch.Tensor:
-    """Mean over the first `valid` time frames. seq: [..., T, D] -> [..., D]."""
     return seq[..., :valid, :].mean(dim=-2)
 
-
+# extract and cache activations for a list of clips under cfg.out_dir
 def extract_clips(cfg: Config, clips: list[dict]) -> dict:
-    """Extract and cache activations for `clips` under cfg.out_dir."""
     extractor = ActivationExtractor(cfg)
     n = len(clips)
     T = extractor.encoder.max_source_positions  # 1500
     n_mels = extractor.model.config.num_mel_bins
 
     # preallocate the output tensors: one row per clip, one leading index per
-    # layer (n_layers blocks + the layer-0 embedding). `full` is only
-    # allocated when the config asks for full sequences (it is ~1000x bigger)
+    # layer (n_layers blocks + the layer-0 embedding). full is only
+    # allocated when the config asks for full sequences
     pooled = torch.zeros(extractor.n_layers + 1, n, extractor.d_model)
     pooled_logmel = torch.zeros(n, n_mels)
     full = (
@@ -127,8 +109,8 @@ def extract_clips(cfg: Config, clips: list[dict]) -> dict:
         else None
     )
 
-    # main extraction loop: one forward pass per clip, then pool over the
-    # clip's real (non-padding) frames and collect its metadata row
+    # main loop: one forward pass per clip, then pool over the
+    # clip's real (so no padding) frames and collect its metadata row
     rows = []
     for i, clip in enumerate(clips):
         acts = extractor.encode(clip["audio"])
@@ -154,8 +136,7 @@ def extract_clips(cfg: Config, clips: list[dict]) -> dict:
             }
         )
 
-    # write one file per layer (the contract checked by E0) plus the
-    # metadata table whose row order matches dim 0 of every tensor
+    # write one file per layer plus the metadata table whose row order matches dim 0 of every tensor
     out = Path(cfg.out_dir)
     out.mkdir(parents=True, exist_ok=True)
     for k in range(extractor.n_layers + 1):
@@ -174,9 +155,8 @@ def extract_clips(cfg: Config, clips: list[dict]) -> dict:
         "out_dir": str(out),
     }
 
-
+# reload a cache directory into memory (pooled, full if present, metadata)
 def load_cached(out_dir: str | Path) -> dict:
-    """Reload a cache directory into memory (pooled, full if present, metadata)."""
     out = Path(out_dir)
     pooled_files = sorted(out.glob("pooled_layer*.pt"))
     cache = {

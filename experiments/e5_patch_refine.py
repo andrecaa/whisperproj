@@ -1,16 +1,16 @@
-"""E5: patching refinements at the most causal block (PLAN §4C refinements).
+"""
+E5: patching refinements at the most causal block
 
 All conditions swap parts of block k's contribution (it->en pairs, k=8 from
 E3) and measure delta language logit + flip, as in E3:
-
-  * time segments: the update patch applied only on quarter-windows of the
-    speech region, plus a padding-only control: WHERE in time is the
-    language evidence?
-  * sublayers: swap only the self-attention contribution, or only the MLP
-    contribution, of block k.
-  * heads: swap one attention head's contribution at a time (out_proj is
-    linear, so head h's contribution is its channel slice pushed through the
-    corresponding rows of the projection).
+1. time segments: the update patch applied only on quarter-windows of the
+speech region, plus a padding-only control: WHERE in time is the
+language evidence?
+2. sublayers: swap only the self-attention contribution, or only the MLP
+contribution, of block k.
+3. heads: swap one attention head's contribution at a time (out_proj is
+linear, so head h's contribution is its channel slice pushed through the
+corresponding rows of the projection)
 
 Outputs: results/e5_patch_refine.json + results/figures/fig5_refine.png
 

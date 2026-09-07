@@ -1,4 +1,5 @@
-"""Activation steering (Phase D, AMBITION; PLAN §4D).
+"""
+Activation steering
 
 Steering vector = mean pooled activation difference between two language
 groups at the most causal block from Phase C, computed on clips held out

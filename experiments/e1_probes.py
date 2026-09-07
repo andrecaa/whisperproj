@@ -1,10 +1,8 @@
-"""E1 + E2: probe sweep with controls (run as one unit, PLAN §8.2).
+"""E1 + E2: probe sweep with controls
 
-Probes every cached layer for: language & gender (FLEURS), speaker ID &
-median F0 (LibriSpeech). Controls baked in (E2): raw log-mel input probe,
-shuffled-label probe, and for F0 both speaker-disjoint and random splits.
-NOTE: FLEURS publishes no speaker identities, so language/gender probes use
-stratified splits; recorded in the output and to be stated in the report.
+Probes every cached layer for: language and gender for fleurs, speaker ID and
+median F0 for librispeech. Controls baked in (E2): raw log-mel input probe,
+shuffled-label probe and for F0 both speaker-disjoint and random splits.
 
 Outputs: results/e1_probes.json + results/figures/fig1_probe_curves.png
 

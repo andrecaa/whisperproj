@@ -1,12 +1,8 @@
-"""E3 gate: hand-verify ONE patched forward pass before any sweep (PLAN §8.3).
+"""
+E3 gate: hand-verify ONE patched forward pass before any sweep
 
-Checks on a single en/it pair:
-  1. SELF-PATCH IS A NO-OP   patching a clip with its own activations gives
-                             bit-identical language logits at every layer
-  2. CROSS-PATCH CHANGES IT  patching with the other clip's activations
-                             changes the logits at every layer
-  3. EYEBALL                 print per-layer delta-logit for this one pair,
-                             plus baseline vs patched transcriptions
+Checks on a single en/it pair: self-patch is a no-op, cross-patch changes it,
+and the block-update patch's effect varies by layer
 
 Run:  uv run python experiments/e3_patch_check.py --config configs/e3_debug.yaml
 """
@@ -48,7 +44,7 @@ def main():
     base = pw.lang_logits(feats_t)
     d_base = base[sl] - base[tl]
 
-    # 1 + 2: self-patch no-op, cross-patch changes, at EVERY layer
+    # 1 + 2: self-patch no-op, cross-patch changes at EVERY layer
     for k in range(pw.n_layers + 1):
         self_p = pw.lang_logits(feats_t, patch=(k, own[k]))
         assert all(self_p[c] == base[c] for c in base), (
@@ -61,7 +57,7 @@ def main():
     print(f"[E3c] 1. self-patch bit-identical at all {pw.n_layers + 1} layers")
     print(f"[E3c] 2. cross-patch changes logits at all layers")
 
-    # 3: eyeball the per-layer effect and the transcriptions
+    # eyeball the per-layer effect and the transcriptions
     print(f"[E3c] 3. baseline top-lang={top_lang(base)}  "
           f"d = logit({sl})-logit({tl}) = {d_base:.2f}")
     for k in range(pw.n_layers + 1):
@@ -69,7 +65,7 @@ def main():
         d = cross[sl] - cross[tl]
         print(f"       layer {k:2d}: delta={d - d_base:+7.2f}  "
               f"top={top_lang(cross)}")
-    # 4: block-update mode (the sweep's real patch); self version must be a
+    # block-update mode (the sweep's real patch); self version must be a
     # near-no-op (float rounding only), cross version must vary BY LAYER
     for k in range(1, pw.n_layers + 1):
         self_u = pw.lang_logits(

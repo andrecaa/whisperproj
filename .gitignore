@@ -1,5 +1,3 @@
-PLAN.md
-
 # environment
 .venv/
 __pycache__/
@@ -23,8 +21,6 @@ desktop.ini
 .vscode/
 .idea/
 
-whisper_guide.html
-
-# report (submitted separately, not part of the code deliverable)
+# report
 report/
 report2/

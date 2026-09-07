@@ -1,33 +1,25 @@
-"""Dataset download / subsetting / preprocessing (Phase A/B input side).
+"""
+Dataset download/subsetting/preprocessing
 
-Every loader returns the same uniform format: a list of dicts with at least
-{id, audio (float32 mono numpy array @ 16 kHz), sr, duration, speaker_id,
-text} plus any property labels (language, gender, median_f0, ...) that
-extraction copies into metadata.parquet.
+Every loader returns a list of dicts with at least {id, audio (float32 mono numpy array @ 16 kHz), 
+sr, duration, speaker_id, text} plus any property labels (language, gender, median_f0, ...)
+that are extracted and copied into the metadata.parquet file.
 
-Loaders (selected by the config's `dataset.loader` key):
-  * hf_generic   : any HF dataset with an `audio` column (E0 uses the tiny
-                   LibriSpeech dummy mirror)
-  * fleurs       : google/fleurs, N languages x n_per_lang clips, streamed
-                   (no full-archive downloads); labels: language, gender
-  * librispeech  : openslr/librispeech_asr test-clean, speaker-balanced
-                   subset; labels: speaker_id (and median F0 if requested)
+Loaders (selected by the config's `dataset.loader` key) are hf_generic (for any HF dataset with an audio column), 
+fleurs (google/fleurs), and librispeech (openslr/librispeech_asr).
 
-Median F0 is computed directly from audio with librosa's pyin (median over
-voiced frames); no external labels needed (PLAN §3).
+Median F0 is computed directly from audio with librosa's pyin (median over voiced frames)
 """
 
 import numpy as np
 from datasets import Audio, load_dataset
 
-WHISPER_SR = 16_000
+WHISPER_SR = 16000
 
 FLEURS_GENDER = {0: "male", 1: "female"}
 
 
 def _load_parquet(pattern: str):
-    """Load only the parquet files matching an hf:// glob (avoids pulling
-    every split of a dataset) and make sure the audio column decodes."""
     ds = load_dataset("parquet", data_files=pattern, split="train")
     if not isinstance(ds.features["audio"], Audio):
         ds = ds.cast_column("audio", Audio(sampling_rate=WHISPER_SR))
@@ -41,7 +33,7 @@ def _clip(audio_arr, sr: int, max_seconds: float, **labels) -> dict:
 
 
 def median_f0(audio: np.ndarray, sr: int = WHISPER_SR) -> float:
-    """Median fundamental frequency over voiced frames (Hz); NaN if unvoiced."""
+    # Median fundamental frequency over voiced frames (Hz); NaN if unvoiced.
     import librosa
 
     f0, _, _ = librosa.pyin(audio, fmin=65.0, fmax=400.0, sr=sr)
@@ -69,8 +61,7 @@ def _load_fleurs(cfg: dict) -> list[dict]:
     clips = []
     split = cfg.get("split", "test")
     for lang in cfg["langs"]:
-        # HF's parquet conversion: fast, resumable file downloads (the native
-        # repo only offers slow sequential tar streaming)
+        # HF parquet conversion; the native repo only offers slow tar streaming
         ds = _load_parquet(
             f"hf://datasets/google/fleurs@refs/convert/parquet/{lang}/{split}/*.parquet"
         )
@@ -95,8 +86,7 @@ def _load_fleurs(cfg: dict) -> list[dict]:
 
 
 def _load_librispeech(cfg: dict) -> list[dict]:
-    # only the requested split's parquet files; `load_dataset(..., "clean")`
-    # would download all clean splits incl. ~30 GB of training data
+    # only the requested split's parquet files otherwise its like 30gb of data
     ds = _load_parquet(
         f"hf://datasets/openslr/librispeech_asr/clean/{cfg.get('split', 'test')}/*.parquet"
     )

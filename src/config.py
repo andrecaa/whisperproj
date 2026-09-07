@@ -1,8 +1,6 @@
-"""Experiment configuration: one YAML per experiment (configs/*.yaml).
-
-The whole tiny/CPU-vs-small/GPU switch lives here: every script receives a
-Config and never hardcodes model name, device, or dtype. Debug configs use
-whisper-tiny / cpu / float32; real runs use whisper-small / cuda / float16.
+"""
+Experiment configuration: one YAML per experiment (configs/*.yaml).
+Config class defined and load_config function takes a path and returns the config object.
 """
 
 from dataclasses import dataclass, field
@@ -18,7 +16,7 @@ class Config:
     device: str
     dtype: str
     out_dir: Path
-    store_full: bool  # cache full-sequence activations (patching) or pooled only
+    store_full: bool  # also cache full-sequence activations (patching needs them), not just pooled
     dataset: dict = field(default_factory=dict)
     patching: dict = field(default_factory=dict)
     steering: dict = field(default_factory=dict)

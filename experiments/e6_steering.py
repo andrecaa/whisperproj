@@ -1,12 +1,12 @@
-"""E6: steering vectors: flip rate & WER vs alpha (Phase D, PLAN §4D).
+"""
+E6: steering vectors: flip rate & WER vs alpha
 
 v = mean(lang_b) - mean(lang_a) pooled activations at the most causal block
 (E3: block 8), computed on held-out clips. alpha * v is added to that block's
 output on evaluation clips of lang_a; for each alpha we record:
-  * flip rate  : fraction of clips whose predicted language token becomes b
-  * WER        : the steered transcription vs. the reference text
-    (the control-vs-damage tradeoff curve is itself the result)
-  * mean delta logit(b) - logit(a) relative to alpha=0 (compare to patching)
+1. flip rate: fraction of clips whose predicted language token becomes b
+2. WER: the steered transcription vs the reference text 
+3. mean delta logit(b) - logit(a) relative to alpha=0 (compare to patching)
 
 Outputs: results/e6_steering.json + results/figures/fig3_steering.png
 

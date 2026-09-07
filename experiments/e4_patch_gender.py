@@ -1,16 +1,13 @@
-"""E4: gender patching (secondary property, PLAN §4C).
+"""
+E4: gender patching
 
 Same-language (English) pairs differing in speaker gender, block-update
 patching as in E3. Whisper exposes no gender in its output, so two metrics:
-
-  * probe flip: a logistic gender probe (trained on held-out clips' pooled
-    FINAL-layer activations) read out on the patched final state: does the
-    target clip now read as the source's gender?
-  * disruption: WER between baseline and patched transcriptions per block:
-    does moving gender through block k change what Whisper actually says?
-
-Expected contrast with E3: gender should be movable with little behavioral
-disruption (Whisper doesn't need it), unlike language.
+1. probe flip: a logistic gender probe (trained on held-out clips' pooled
+FINAL-layer activations) read out on the patched final state: does the
+target clip now read as the source's gender?
+2. disruption: WER between baseline and patched transcriptions per block:
+does moving gender through block k change what Whisper actually says?
 
 Outputs: results/e4_patch_gender.json + results/figures/fig4_gender_patching.png
 
@@ -62,7 +59,7 @@ def main():
     print(f"[E4] gender probe trained on {len(y)} held-out clips "
           f"(train acc {probe.score(X, y):.2f})")
 
-    # mixed-direction pairs: female targets w/ male sources and vice versa
+    # mixed-direction pairs: female targets with male sources and vice versa
     half = p["n_pairs"] // 2
     pairs = (make_pairs(females[:half * 2], males, half, p["duration_tol"],
                         match_gender=False)

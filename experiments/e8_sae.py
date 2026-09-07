@@ -1,16 +1,13 @@
-"""E8: sparse autoencoder on the most causal block's activations (PLAN §4E).
+"""
+E8: sparse autoencoder on the most causal block's activations
 
 Collects frame-level block-8 activations across all five FLEURS languages,
 trains a top-k SAE, then asks three questions:
 
-  1. Are there language-selective features? (mean activation per language,
-     selectivity = top language's share; top features tabulated with their
-     max-activating clips)
-  2. Does any single feature align with the E6 steering vector? (cosine
-     between v and each decoder row)
-  3. E9-lite: what does steering DO in feature space? (encode frames with
-     and without +alpha*v; rank features by activation change; check the
-     overlap with the language-selective features from 1)
+1. Are there language-selective features? (mean activation per language,
+selectivity = top language's share; top features tabulated with their max activating clips)
+2. Does any single feature align with the E6 steering vector? 
+3. E9-lite: what does steering DO in feature space? 
 
 Outputs: results/e8_sae.json + results/figures/fig7_sae.png
 

@@ -1,9 +1,10 @@
-"""E7: steering stress test (PLAN §4D natural stress test).
+"""
+E7: steering stress test
 
 Part A, code-switched audio: synthetic clips made by concatenating 5 s of
-English and 5 s of Italian (both orders). Measures Whisper's baseline choice
+English and 5 s of Italian. Measures Whisper's baseline choice
 on ambiguous input and the alpha needed to steer it either way, compared
-with the pure-clip thresholds from E6.
+with the pure clip thresholds from E6.
 
 Part B, related languages: the it-en steering vector applied to French and
 Spanish clips. Does +alpha*v (toward Italian) capture Romance neighbors more

@@ -1,13 +1,10 @@
-"""E3: language patching sweep (Phase C core, PLAN §4C).
+"""
+E3: language patching sweep
 
 For every en<->it pair and every encoder block k, replaces block k's residual
-contribution in the target's forward pass with the source's (block-update
-patching; full-state replacement is degenerate; see src/patching.py) and
-records:
-  * delta = [logit(src_lang) - logit(tgt_lang)]_patched - [same]_baseline
-  * flip  = does the top language token become the source language?
-Full-state replacement is also run once per pair as a sanity upper bound
-(it must flip: it is equivalent to running the source clip).
+contribution in the target's forward pass with the source's and records: 
+1. delta = [logit(src_lang) - logit(tgt_lang)]_patched - [same]_baseline
+2. flip  = does the top language token become the source language?
 
 Outputs: results/e3_patch_lang.json + results/figures/fig2_patching.png
 
