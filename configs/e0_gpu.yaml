@@ -1,0 +1,12 @@
+# E0 sanity — real path: whisper-small in fp16 on the RTX 4070.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: activations/e0_gpu
+store_full: true
+dataset:
+  name: hf-internal-testing/librispeech_asr_dummy
+  config: clean
+  split: validation
+  n_clips: 10
+  max_seconds: 10.0

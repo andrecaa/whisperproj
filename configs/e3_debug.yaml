@@ -1,0 +1,17 @@
+# E3 debug — patching machinery test: whisper-tiny/CPU, 2 relaxed pairs.
+model_name: openai/whisper-tiny
+device: cpu
+dtype: float32
+out_dir: results/e3_debug
+store_full: false
+dataset:
+  loader: fleurs
+  langs: [en_us, it_it]
+  split: test
+  n_per_lang: 5
+  max_seconds: 10.0
+patching:
+  n_pairs: 2
+  duration_tol: 6.0        # relaxed: only 5 clips/lang to pick from
+  match_gender: false
+  directions: [[en_us, it_it]]

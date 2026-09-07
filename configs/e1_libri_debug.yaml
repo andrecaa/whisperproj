@@ -1,0 +1,12 @@
+# E1 debug — small LibriSpeech slice on whisper-tiny/CPU (pipeline test only).
+model_name: openai/whisper-tiny
+device: cpu
+dtype: float32
+out_dir: activations/e1_libri_debug
+store_full: false
+dataset:
+  loader: librispeech
+  split: test
+  n_clips: 20
+  max_seconds: 10.0
+  compute_f0: true

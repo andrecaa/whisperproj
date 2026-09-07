@@ -1,0 +1,20 @@
+# E6 — steering at the most causal block (8, from E3), whisper-small on GPU.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: results/e6
+store_full: false
+dataset:
+  loader: fleurs
+  langs: [en_us, it_it]
+  split: test
+  n_per_lang: 400
+  max_seconds: 10.0
+steering:
+  layer: 8
+  cache_dir: activations/e1_fleurs   # pooled activations for the vector
+  vector_slice: [200, 400]           # per-language clips used for v (held out
+  eval_n: 100                        # from these first-100 eval clips)
+  transcribe_n: 50
+  alphas: [0, 1, 2, 2.5, 3, 3.5, 4, 8]   # fine grid in the 2-4 transition
+  directions: [[en_us, it_it], [it_it, en_us]]   # steer lang A toward lang B

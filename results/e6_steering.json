@@ -1,0 +1,106 @@
+{
+  "model": "openai/whisper-small",
+  "layer": 8,
+  "alphas": [
+    0,
+    1,
+    2,
+    2.5,
+    3,
+    3.5,
+    4,
+    8
+  ],
+  "directions": {
+    "en->it": {
+      "vector_norm": 5.543614387512207,
+      "n_eval": 100,
+      "n_transcribe": 50,
+      "flip_rate": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.44,
+        0.99,
+        1.0
+      ],
+      "mean_delta": [
+        0.0,
+        0.7249218749999997,
+        2.5356249999999996,
+        3.6428125,
+        2.6871484375000003,
+        9.1628125,
+        10.658984375,
+        10.840937499999999
+      ],
+      "wer": [
+        0.10113361065382383,
+        0.10633423252936833,
+        0.15065875174841087,
+        0.27730358152240825,
+        0.862026547993245,
+        0.969128439008374,
+        0.9932856395706827,
+        1.0
+      ],
+      "sample_transcriptions": {
+        "0": "However, due to the slow communication channels, styles in the West could lag behind by 25 to 30 years.",
+        "1": "However, due to the slow communication channels, styles in the West could lag behind by 25 to 30 years.",
+        "2": "However, due to the slow communication channels, styles in the West could lag behind by 25 to 30 years.",
+        "2.5": "However, due to the slow community channels, styles in the West could lag behind by 25 to 30 years.",
+        "3": "How ever.",
+        "3.5": "the",
+        "4": "It",
+        "8": ""
+      }
+    },
+    "it->en": {
+      "vector_norm": 5.543614387512207,
+      "n_eval": 100,
+      "n_transcribe": 50,
+      "flip_rate": [
+        0.0,
+        0.0,
+        0.04,
+        0.27,
+        0.83,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_delta": [
+        0.0,
+        0.4699218749999998,
+        2.8792187499999997,
+        4.309921875,
+        5.391953125,
+        6.4834375,
+        7.760546875,
+        13.193046875
+      ],
+      "wer": [
+        0.3046043983715828,
+        0.3263677939977455,
+        0.5291831536323067,
+        0.7605337787559324,
+        0.9368547220819585,
+        0.9905066423880103,
+        0.9972259871690611,
+        1.0
+      ],
+      "sample_transcriptions": {
+        "0": "Il blog \u00e8 uno strumento che si prefigge di incoraggiare la collaborazione e sviluppare l'apprendimento degli studenti ben oltre a giornata scolasticamente.",
+        "1": "Il blog \u00e8 uno strumento che si prefigge di incoraggiare la collaborazione e sviluppare l'apprendimento dei studenti ben oltre a giornata scolastica",
+        "2": "Il blog \u00e8 uno strumento che si prefige di incoraggiare la collaborazione e sviluppare l'apprendimento di studente ben attraggiornata scolasticamente.",
+        "2.5": "Il blog \u00e8 uno strumento che si prefi di incoraggiare la collaborazione e sviruppare la prendimento di stuventi ben attraggiornati a scolastico",
+        "3": "I'm not sure what I'm saying.",
+        "3.5": "I don't know what to say.",
+        "4": "I",
+        "8": "I'm going to do it again."
+      }
+    }
+  }
+}

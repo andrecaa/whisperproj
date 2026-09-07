@@ -1,0 +1,18 @@
+# E4 — gender patching pairs (same language, opposite gender), GPU.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: results/e4
+store_full: false
+dataset:
+  loader: fleurs
+  langs: [en_us]
+  split: test
+  n_per_lang: 400
+  max_seconds: 10.0
+patching:
+  n_pairs: 100               # mixed male<->female targets
+  duration_tol: 1.5
+  n_transcribe: 10           # pairs used for WER-disruption per block
+  probe_cache: activations/e1_fleurs   # pooled acts to train the gender probe
+  probe_train_slice: [200, 400]        # en clips held out from pairing

@@ -1,0 +1,18 @@
+# E3 — language patching sweep: whisper-small on GPU, en<->it pairs.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: results/e3
+store_full: false
+dataset:
+  loader: fleurs
+  langs: [en_us, it_it]
+  split: test
+  n_per_lang: 400
+  max_seconds: 10.0
+patching:
+  n_pairs: 100
+  duration_tol: 1.5
+  match_gender: true
+  directions: [[en_us, it_it], [it_it, en_us]]   # [target, source] per direction
+  n_transcribe: 5          # sample transcriptions at the most causal layer

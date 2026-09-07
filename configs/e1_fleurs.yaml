@@ -1,0 +1,12 @@
+# E1 — FLEURS extraction (language + gender labels), whisper-small on GPU.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: activations/e1_fleurs
+store_full: false          # pooled only; probes never need full sequences
+dataset:
+  loader: fleurs
+  langs: [en_us, it_it, ja_jp, fr_fr, es_419]
+  split: test
+  n_per_lang: 400
+  max_seconds: 10.0

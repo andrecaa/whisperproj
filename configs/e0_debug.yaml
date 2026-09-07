@@ -1,0 +1,13 @@
+# E0 sanity — debug path: whisper-tiny on CPU in fp32 (bit-exact determinism).
+model_name: openai/whisper-tiny
+device: cpu
+dtype: float32
+out_dir: activations/e0_debug
+store_full: true
+dataset:
+  # Tiny official mirror of real LibriSpeech audio (~9 MB) — sanity only.
+  name: hf-internal-testing/librispeech_asr_dummy
+  config: clean
+  split: validation
+  n_clips: 10
+  max_seconds: 10.0

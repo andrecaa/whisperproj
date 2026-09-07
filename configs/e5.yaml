@@ -1,0 +1,19 @@
+# E5 — patching refinements at the most causal block (8, from E3), GPU.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: results/e5
+store_full: false
+dataset:
+  loader: fleurs
+  langs: [en_us, it_it]
+  split: test
+  n_per_lang: 400
+  max_seconds: 10.0
+patching:
+  block: 8
+  n_pairs: 50
+  duration_tol: 1.5
+  match_gender: true
+  direction: [it_it, en_us]      # [target, source]: the strong it->en direction
+  n_segments: 4                  # quarters of the speech region

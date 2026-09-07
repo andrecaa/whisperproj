@@ -1,0 +1,20 @@
+# E6 debug — steering pipeline test on whisper-tiny/CPU.
+model_name: openai/whisper-tiny
+device: cpu
+dtype: float32
+out_dir: results/e6_debug
+store_full: false
+dataset:
+  loader: fleurs
+  langs: [en_us, it_it]
+  split: test
+  n_per_lang: 5
+  max_seconds: 10.0
+steering:
+  layer: 2
+  cache_dir: activations/e1_fleurs_debug
+  vector_slice: [2, 5]
+  eval_n: 2
+  transcribe_n: 2
+  alphas: [0, 8]
+  directions: [[en_us, it_it]]

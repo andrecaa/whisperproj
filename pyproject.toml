@@ -1,0 +1,29 @@
+[project]
+name = "whisper-interp"
+version = "0.1.0"
+description = "Causal localization and steering of speaker/language information in Whisper (DLAI BYOP project)"
+requires-python = ">=3.12"
+dependencies = [
+    "torch>=2.7",
+    "torchaudio>=2.7",
+    "transformers>=4.50",
+    "datasets>=3.6,<4",
+    "soundfile>=0.13",
+    "librosa>=0.10",
+    "scikit-learn>=1.6",
+    "matplotlib>=3.9",
+    "pandas>=2.2",
+    "pyarrow>=19",
+    "pyyaml>=6",
+]
+
+# PyTorch CUDA wheels are not on PyPI on Windows: pull torch/torchaudio from the
+# official cu128 index, everything else from PyPI.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }

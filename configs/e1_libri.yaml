@@ -1,0 +1,12 @@
+# E1 — LibriSpeech test-clean extraction (speaker ID + median F0), GPU.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: activations/e1_libri
+store_full: false
+dataset:
+  loader: librispeech
+  split: test
+  n_clips: 800             # speaker-balanced: ~20 clips x 40 speakers
+  max_seconds: 10.0
+  compute_f0: true

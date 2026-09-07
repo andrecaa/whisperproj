@@ -1,1 +1,30 @@
 PLAN.md
+
+# environment
+.venv/
+__pycache__/
+*.pyc
+
+# data & activation caches (large, regenerable)
+activations/
+data/
+.cache/
+
+# notebook noise
+.ipynb_checkpoints/
+
+# trained SAE checkpoint (36 MB, regenerable with experiments/e8_sae.py)
+results/*.pt
+
+# OS and editor junk
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+whisper_guide.html
+
+# report (submitted separately, not part of the code deliverable)
+report/
+report2/

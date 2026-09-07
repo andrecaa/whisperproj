@@ -1,0 +1,20 @@
+# E7 — steering stress test: code-switched + related-language audio, GPU.
+model_name: openai/whisper-small
+device: cuda
+dtype: float16
+out_dir: results/e7
+store_full: false
+dataset:
+  loader: fleurs
+  langs: [en_us, it_it, fr_fr, es_419]
+  split: test
+  n_per_lang: 400
+  max_seconds: 10.0
+steering:
+  layer: 8
+  cache_dir: activations/e1_fleurs
+  vector_slice: [200, 400]
+  alphas: [0, 1, 1.5, 2, 2.5, 3, 3.5, 4]
+  n_concat: 50               # synthetic code-switched clips per order
+  concat_seconds: 5.0        # seconds of each language in a concat clip
+  n_related: 100             # fr/es clips for the leakage test

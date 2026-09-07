@@ -1,0 +1,638 @@
+{
+  "model": "openai/whisper-small",
+  "layer": 8,
+  "n_frames": 120000,
+  "n_features": 6144,
+  "topk": 32,
+  "fvu": 0.007924704312482772,
+  "dead_features": 2997,
+  "n_selective_gt80": 873,
+  "n_active": 3147,
+  "top_features_by_language": {
+    "en": [
+      {
+        "feature": 3718,
+        "selectivity": 0.9999991655349731,
+        "top_clips": [
+          "en_us_1663",
+          "en_us_1671",
+          "en_us_1675",
+          "en_us_1678",
+          "en_us_1704"
+        ]
+      },
+      {
+        "feature": 2149,
+        "selectivity": 0.9999991059303284,
+        "top_clips": [
+          "en_us_1673",
+          "en_us_1675",
+          "en_us_1678",
+          "en_us_1716",
+          "en_us_1728"
+        ]
+      },
+      {
+        "feature": 5934,
+        "selectivity": 0.9999990463256836,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1708",
+          "en_us_1716",
+          "en_us_1717",
+          "en_us_1720"
+        ]
+      },
+      {
+        "feature": 5446,
+        "selectivity": 0.9999988079071045,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1680",
+          "en_us_1694",
+          "en_us_1701",
+          "en_us_1728"
+        ]
+      },
+      {
+        "feature": 5787,
+        "selectivity": 0.9999983310699463,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1711",
+          "en_us_1728",
+          "en_us_1765",
+          "en_us_1804"
+        ]
+      },
+      {
+        "feature": 2115,
+        "selectivity": 0.9999979734420776,
+        "top_clips": [
+          "en_us_1665",
+          "en_us_1674",
+          "en_us_1675",
+          "en_us_1706",
+          "en_us_1728"
+        ]
+      },
+      {
+        "feature": 3019,
+        "selectivity": 0.9999978542327881,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1699",
+          "en_us_1728",
+          "en_us_1805",
+          "en_us_1810"
+        ]
+      },
+      {
+        "feature": 2227,
+        "selectivity": 0.9999978542327881,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1693",
+          "en_us_1695",
+          "en_us_1722",
+          "en_us_1728"
+        ]
+      },
+      {
+        "feature": 5285,
+        "selectivity": 0.999997615814209,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1743",
+          "en_us_1751",
+          "en_us_1804"
+        ]
+      },
+      {
+        "feature": 2091,
+        "selectivity": 0.9999975562095642,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1696",
+          "en_us_1722",
+          "en_us_1728",
+          "en_us_1769"
+        ]
+      }
+    ],
+    "es": [
+      {
+        "feature": 713,
+        "selectivity": 0.9999952912330627,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1798"
+        ]
+      },
+      {
+        "feature": 4130,
+        "selectivity": 0.9999949932098389,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1825"
+        ]
+      },
+      {
+        "feature": 5451,
+        "selectivity": 0.9999918937683105,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1881"
+        ]
+      },
+      {
+        "feature": 2572,
+        "selectivity": 0.9999915957450867,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1729"
+        ]
+      },
+      {
+        "feature": 5172,
+        "selectivity": 0.999990701675415,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1749"
+        ]
+      },
+      {
+        "feature": 64,
+        "selectivity": 0.9999904036521912,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1699"
+        ]
+      },
+      {
+        "feature": 1509,
+        "selectivity": 0.9999867677688599,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1692"
+        ]
+      },
+      {
+        "feature": 6130,
+        "selectivity": 0.9999854564666748,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 3003,
+        "selectivity": 0.9999849200248718,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1675"
+        ]
+      },
+      {
+        "feature": 4686,
+        "selectivity": 0.9999845027923584,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1708"
+        ]
+      }
+    ],
+    "fr": [
+      {
+        "feature": 4784,
+        "selectivity": 0.9999992847442627,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 5468,
+        "selectivity": 0.9999987483024597,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 1810,
+        "selectivity": 0.9999985098838806,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 4352,
+        "selectivity": 0.9999985098838806,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 1204,
+        "selectivity": 0.9999969005584717,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 437,
+        "selectivity": 0.9999968409538269,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 1858,
+        "selectivity": 0.9999967217445374,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 3654,
+        "selectivity": 0.999994695186615,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 220,
+        "selectivity": 0.9999943971633911,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 3097,
+        "selectivity": 0.9999933242797852,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      }
+    ],
+    "it": [
+      {
+        "feature": 3228,
+        "selectivity": 0.9999983906745911,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 872,
+        "selectivity": 0.9999980926513672,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 743,
+        "selectivity": 0.9999974966049194,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 5165,
+        "selectivity": 0.9999967217445374,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 4074,
+        "selectivity": 0.999994695186615,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 1440,
+        "selectivity": 0.9999933242797852,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 1188,
+        "selectivity": 0.9999925494194031,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 4608,
+        "selectivity": 0.9999919533729553,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 5877,
+        "selectivity": 0.9999915957450867,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 5137,
+        "selectivity": 0.9999908804893494,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      }
+    ],
+    "ja": [
+      {
+        "feature": 4214,
+        "selectivity": 0.9999999403953552,
+        "top_clips": [
+          "es_419_1973",
+          "ja_jp_1664",
+          "ja_jp_1672",
+          "ja_jp_1675",
+          "ja_jp_1676"
+        ]
+      },
+      {
+        "feature": 4453,
+        "selectivity": 0.9999990463256836,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 3664,
+        "selectivity": 0.999998152256012,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 4390,
+        "selectivity": 0.999997615814209,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 4971,
+        "selectivity": 0.9999970197677612,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 1505,
+        "selectivity": 0.9999966621398926,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 5111,
+        "selectivity": 0.9999962449073792,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 969,
+        "selectivity": 0.9999961853027344,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 306,
+        "selectivity": 0.9999957084655762,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      },
+      {
+        "feature": 3443,
+        "selectivity": 0.9999954700469971,
+        "top_clips": [
+          "en_us_1675",
+          "en_us_1728",
+          "en_us_1904",
+          "en_us_1950",
+          "es_419_1973"
+        ]
+      }
+    ]
+  },
+  "steering_cos_top10": [
+    {
+      "feature": 3058,
+      "cos": 0.27858230471611023
+    },
+    {
+      "feature": 4519,
+      "cos": -0.25994810461997986
+    },
+    {
+      "feature": 4578,
+      "cos": -0.2542020082473755
+    },
+    {
+      "feature": 296,
+      "cos": -0.23591965436935425
+    },
+    {
+      "feature": 436,
+      "cos": 0.22040078043937683
+    },
+    {
+      "feature": 5648,
+      "cos": 0.21685683727264404
+    },
+    {
+      "feature": 2592,
+      "cos": -0.21061405539512634
+    },
+    {
+      "feature": 227,
+      "cos": -0.20784561336040497
+    },
+    {
+      "feature": 2947,
+      "cos": 0.1921709030866623
+    },
+    {
+      "feature": 5403,
+      "cos": -0.19079940021038055
+    }
+  ],
+  "steer_top20_upweighted": [
+    3562,
+    2850,
+    4769,
+    2648,
+    5662,
+    1419,
+    1796,
+    1207,
+    348,
+    910,
+    3054,
+    394,
+    2742,
+    5985,
+    365,
+    4137,
+    1774,
+    798,
+    5754,
+    654
+  ],
+  "steer_top20_it_selective_overlap": 0
+}
